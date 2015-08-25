@@ -1,4 +1,5 @@
 var http = require('http');
+var concatStream = require('concat-stream');
 
 var URL = "";
 if (process.argv.length > 2) {
@@ -7,10 +8,19 @@ if (process.argv.length > 2) {
 
 function write(response) {
 	//console.log("Got response: " + response.statusCode);
-	
+	/*
 	response.on("data", function(chunk) {
 		console.log(chunk.toString());
 	})
+	*/
+	var characterCount = 0;
+	var output = "";
+	response.pipe(concatStream(function (data) {
+		characterCount += data.toString().length;
+		output += data.toString();
+		console.log(characterCount);
+		console.log(output);		
+	}))
 }
 
 function errorReporter(err) {
