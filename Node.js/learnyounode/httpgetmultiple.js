@@ -9,20 +9,18 @@ var completedRequests = 0;
 if (process.argv.length > 2) {
 	for (var i = 2; i < process.argv.length; i++) {
 		URL[urlID] = process.argv[i];			
-		responses[urlID] = "";
+		//responses[urlID] = "";
 		completedRequests[urlID] = false;
 		urlID++;
 	}
 }
 
-
-
-var HttpPage = function retrieve(url) {
-	var page = this;
-	page.url = url;
-	page.data = "";
+var HttpPage = function (url) {
+	var _page = this;
+	_page.url = url;
+	_page.data = "";
 	
-	http.get(page.url, function write(response) {
+	http.get(_page.url, function write(response) {
 	//console.log("Got response: " + response.statusCode);
 	/*
 	response.on("data", function(chunk) {
@@ -34,9 +32,10 @@ var HttpPage = function retrieve(url) {
 	response.setEncoding('utf8');
 	response.pipe(bl(function (err, data) {
 		if (err) {
+			console.log("Error:" + err.message())
 			return console.error(err);
 		}
-		page.data = data.toString();
+		_page.data = data.toString();
 			//characterCount += data.toString().length;
 			//output += data.toString();
 			//responses[workingURLID] = output;
@@ -58,8 +57,9 @@ var HttpPage = function retrieve(url) {
 				}
 				*/
 				responses.forEach(function(aPage) {
-					console.log(aPage.url);
+					console.log(aPage.data);
 				})
+
 			}
 			
 		})
@@ -84,10 +84,8 @@ function checkComplete() {
 
 function getURLList(list) {
 	for (var i = 0; i < list.length; i++) {
-		console.log("Retrieving URL: " + list[i]);
 		responses.push(new HttpPage(list[i]));
 	}
-		
 }
 
 getURLList(URL);
