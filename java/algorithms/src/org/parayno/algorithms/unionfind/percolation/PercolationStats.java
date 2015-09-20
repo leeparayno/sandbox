@@ -1,6 +1,7 @@
 package org.parayno.algorithms.unionfind.percolation;
 
 import java.util.Random;
+
 import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
@@ -11,10 +12,10 @@ public class PercolationStats {
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T) {
         if (N <= 0) {
-            throw new IndexOutOfBoundsException("N must be a positive number. Given:" + N);
+            throw new IllegalArgumentException("N must be a positive number. Given:" + N);
         }
         if (T <= 0) {
-            throw new IndexOutOfBoundsException("T must be a positive number. Given:" + T);
+            throw new IllegalArgumentException("T must be a positive number. Given:" + T);
         }
         percolations = new double[T];
         for (int i = 0; i < T; i++) {
@@ -34,11 +35,11 @@ public class PercolationStats {
                     perc.open(x, y);
                     openSites++;
                 }
-                //System.out.println("OPEN SITES: " + openSites + ", TOTAL SITES:" + (N * N));
+                // System.out.println("OPEN SITES: " + openSites + ", TOTAL SITES:" + (N * N));
 
             }
-            
-            //System.out.println("Xt:" + (openSites / (N * N)));
+
+            // System.out.println("Xt:" + (openSites / (N * N)));
             percolations[i] = (openSites / (N * N));
             // sum += openSites;
         }
@@ -75,24 +76,14 @@ public class PercolationStats {
         if (args.length < 2) {
             throw new IllegalArgumentException();
         }
-        int N;
-        int T;
-        try {
-            N = Integer.parseInt(args[0]);
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
-        }
-        try {
-            T = Integer.parseInt(args[1]);
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
-        }        
+        int N = Integer.parseInt(args[0]);
+        int T = Integer.parseInt(args[1]);
         if (N <= 0) {
-            throw new IndexOutOfBoundsException("N must be a positive number. Given:" + N);
+            throw new IllegalArgumentException("N must be a positive number. Given:" + N);
         }
         if (T <= 0) {
-            throw new IndexOutOfBoundsException("T must be a positive number. Given:" + T);
-        }        
+            throw new IllegalArgumentException("T must be a positive number. Given:" + T);
+        }
         PercolationStats stats = new PercolationStats(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         System.out.println("mean = " + stats.mean());
         System.out.println("stddev = " + stats.stddev());

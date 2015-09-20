@@ -17,7 +17,7 @@ public class Percolation {
 
     public Percolation(int N) {
         if (N <= 0) {
-            throw new IndexOutOfBoundsException("N must be a positive number. Given:" + N);
+            throw new IllegalArgumentException("N must be a positive number. Given:" + N);
         }
         this.N = N;
         // this.totalSites = N * N;
