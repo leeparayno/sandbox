@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     // create N-by-N grid, with all sites blocked
-    private int[][] grid;
+    private boolean[][] grid;
     private int N;
     // private int openSites = 0;
     // private int totalSites = 0;
@@ -21,10 +21,10 @@ public class Percolation {
         }
         this.N = N;
         // this.totalSites = N * N;
-        grid = new int[N][N];
+        grid = new boolean[N][N];
         for (int j = 0; j < N; j++) {
             for (int i = 0; i < N; i++) {
-                grid[j][i] = 0;
+                grid[j][i] = false;
             }
         }
         virtualQU = new WeightedQuickUnionUF((N * N) + 2);
@@ -45,9 +45,9 @@ public class Percolation {
             throw new IndexOutOfBoundsException();
         }
 
-        if (grid[x][y] == 0) {
+        if (!grid[x][y]) {
             // openSites++;
-            grid[x][y] = 1;
+            grid[x][y] = true;
         } else {
             // Previously opened
             return;
@@ -182,7 +182,7 @@ public class Percolation {
         if (y < 0 || (y > N - 1 && x != 0)) {
             throw new IndexOutOfBoundsException();
         }
-        if (grid[x][y] == 1) {
+        if (grid[x][y]) {
             return true;
         }
         return false;
@@ -237,21 +237,21 @@ public class Percolation {
         M = 0;
         try {
             perc = new Percolation(M);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 
         M = -1;
         try {
             perc = new Percolation(M);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 
         M = -10;
         try {
             perc = new Percolation(M);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
 
